@@ -23,7 +23,8 @@ export class Arm {
 
     public calAngle (vector:vec3) {
         const nv = vec3.normalize(vec3.create(), vector);
-        this.angle = vec3.angle(nv, vec3.fromValues(1, 0, 0));
+        const baseVector = vec3.fromValues(1, 0, 0);
+        this.angle = Math.sign(vec3.dot(nv, vec3.fromValues(0, 1, 0))) * vec3.angle(nv, baseVector);
     }
 
     public calTail () {
@@ -55,6 +56,7 @@ export class Arm {
     public update (target:vec3) {
         this.follow(target);
         this.calTail();
+        this.prev && this.prev.update(this.head);
 
         /* codes from some paper
         const a = vec3.fromValues(0, 0, 1);

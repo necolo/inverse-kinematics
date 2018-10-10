@@ -12,13 +12,14 @@ export class State {
         this.camera = new Camera(regl);
         this.hit = new Hit(regl._gl.canvas, this.camera);
 
-        const armCount = 2;
+        const armCount = 5;
+        const armLength = 0.5;
         const startPoint = vec3.fromValues(0, 0, 0);
 
-        this.arms.push(new Arm(0, null))
+        this.arms.push(new Arm(0, null, armLength))
 
         for (let i = 1; i < armCount; i ++) {
-            this.arms.push(new Arm( i, this.getLastArm() ));
+            this.arms.push(new Arm( i, this.getLastArm(), armLength ));
         }
 
         for (let i = 0; i < this.arms.length - 1; i ++) {
@@ -26,7 +27,7 @@ export class State {
         }
 
         this.arms[0].color = vec3.fromValues(1, 0, 0);
-        this.arms[1].color = vec3.fromValues(0, 1, 0);
+        // this.arms[1].color = vec3.fromValues(0, 1, 0);
     }
 
     public getLastArm () {
