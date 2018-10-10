@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": ["dom", "es6", "es2015", "es5"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "outDir": "build",
+    "rootDir": "./src",
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "removeComments": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "es6",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "paths": {
+      "*": [
+        "./types/*"
+      ]
+  },
+  "include": [
+    "src/**/*",
+    "types"
+  ],
+  "exclude": [
+    "build",
+    "node_modules"
+  ]
+}
