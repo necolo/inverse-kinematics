@@ -5,7 +5,6 @@ export class Arm {
     public head:vec3;
     public tail:vec3 = vec3.create();
     public prev:Arm|null;
-    public next:Arm|null = null;
     public length:number;
     public color:vec3 = vec3.fromValues(1, 1, 1);
     public angle:number;

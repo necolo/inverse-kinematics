@@ -12,18 +12,14 @@ export class State {
         this.camera = new Camera(regl);
         this.hit = new Hit(regl._gl.canvas, this.camera);
 
-        const armCount = 5;
-        const armLength = 0.5;
+        const armCount = 30;
+        const armLength = 0.1;
         const startPoint = vec3.fromValues(0, 0, 0);
 
         this.arms.push(new Arm(0, null, armLength))
 
         for (let i = 1; i < armCount; i ++) {
-            this.arms.push(new Arm( i, this.getLastArm(), armLength ));
-        }
-
-        for (let i = 0; i < this.arms.length - 1; i ++) {
-            this.arms[i].next = this.arms[i + 1];
+            this.arms.push(new Arm( i, this.arms[i - 1], armLength ));
         }
 
         this.arms[0].color = vec3.fromValues(1, 0, 0);
@@ -36,6 +32,15 @@ export class State {
 
     public update () {
         this.getLastArm().update(this.hit.position);
+        
+        this.arms[0].head = vec3.fromValues(0, 0, 0);
+        this.arms[0].calTail();
+
+        for (let i = 1; i < this.arms.length; i ++) {
+            const arm = this.arms[i];
+            arm.head = this.arms[i - 1].tail;
+            arm.calTail();
+        }
     }
 }
 

@@ -43,8 +43,8 @@ export = function (regl) {
             for (let i = 0; i < arms.length; i ++) {
                 const arm = arms[i];
                 drawLine(arm.getLine(), arm.color);
-                drawPoint(arm.head);
-                drawPoint(arm.tail);
+                // drawPoint(arm.head);
+                // drawPoint(arm.tail);
             }
         });
     }
