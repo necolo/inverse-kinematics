@@ -12,16 +12,6 @@ export = function (regl) {
     let target = vec3.create();
     let targetIsSet = false;
 
-    (window as any).setTarget = (_target:vec3|null) => {
-        if (!_target) {
-            targetIsSet = false;
-            return;
-        }
-        target = _target;
-        targetIsSet = true;
-    }
-
-
     const setup = regl({
         uniforms: {
             view: regl.prop('camera.mouse.view'),
@@ -42,9 +32,9 @@ export = function (regl) {
 
             for (let i = 0; i < arms.length; i ++) {
                 const arm = arms[i];
-                drawLine(arm.getLine(), arm.color);
-                // drawPoint(arm.head);
-                // drawPoint(arm.tail);
+                drawLine(arm.getLine(), arm.color, arm.weight);
+                drawPoint(arm.head);
+                drawPoint(arm.tail);
             }
         });
     }

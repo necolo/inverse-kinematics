@@ -36,10 +36,11 @@ export = function (regl) {
         offset: 0,
     });
 
-    return function (line:vec3[], color?:vec3) {
+    return function (line:vec3[], color?:vec3, weight = 1) {
         drawLine({
             line,
             color: color || DEFAULT_COLOR,
+            weight,
         });
     };
 };

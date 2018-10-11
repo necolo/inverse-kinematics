@@ -8,16 +8,21 @@ export class Arm {
     public length:number;
     public color:vec3 = vec3.fromValues(1, 1, 1);
     public angle:number;
+    public weight:number;
 
-    constructor (id:number, prev:Arm|null, len = 1, angle = 0) {
+    constructor (id:number, spec:{
+        prev?:Arm,
+        len?:number,
+        angle?:number,
+        weight?:number,
+    } = {}) {
         this.id = id;
-        this.prev = prev;
+        this.prev = spec.prev || null;
         this.head = this.prev && this.prev.tail || vec3.fromValues(0, 0, 0);
-        this.length = len;
-        this.angle = angle;
+        this.length = spec.len || 1;
+        this.angle = spec.angle || 0;
+        this.weight = spec.weight || 1;
         this.calTail();
-        (window as any).vec3 = vec3;
-        (window as any).vec2 = vec2;
     }
 
     public calAngle (vector:vec3) {
@@ -56,42 +61,6 @@ export class Arm {
         this.follow(target);
         this.calTail();
         this.prev && this.prev.update(this.head);
-
-        /* codes from some paper
-        const a = vec3.fromValues(0, 0, 1);
-        const b = vec3.sub(vec3.create(), this.tail, this.head);
-        vec3.normalize(b, b);
-
-        const r = vec3.cross(vec3.create(), a, b);
-        const f = vec3.sub(vec3.create(), target, this.tail);
-        vec3.normalize(f, f);
-
-        const magf = vec3.dist(target, this.tail);
-        const sinaf = Math.sin(vec3.angle(a, f));
-        const cosrf = Math.cos(vec3.angle(r, f));
-        const sens = 0.001;
-        const torque = magf * sinaf * Math.sign(cosrf) * sens;
-
-        const angle = vec3.angle(b, [1, 0, 0]);
-
-        if (this.prev) {
-            this.prev.update(target);
-        }
-
-        if (vec3.dot(b, f) >= 0.98) { return; }
-
-        const theta = angle + torque;
-        this.tail = vec3.fromValues(
-            this.length * Math.cos(theta),
-            this.length * Math.sin(theta),
-            0
-        );
-        vec3.add(this.tail, this.tail, this.head);
-
-        if (this.next) {
-            this.next.head = this.tail;
-        }
-        */
     }
 }
 
