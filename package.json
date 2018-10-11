@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "budo build/index.js --dir ./build --live",
+    "watch": "tsc --watch",
     "demo": "tsc && browserify build/index.js | uglifyjs -c > demo/bundle.js"
   },
   "dependencies": {
